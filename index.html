@@ -1,0 +1,214 @@
+<!doctype html>
+<html ng-app="todoApp">
+	<head>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-base64/2.0.5/angular-base64.min.js"></script>
+		<script src="todo.js"></script>
+		<link rel="stylesheet" href="todo.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+	</head>
+	<body ng-controller="TodoListController">
+				<nav class="nav">
+		  <div class="nav-left">
+		    <a class="nav-item is-brand" href="#">
+		    </a>
+		  </div>
+
+		  <div class="nav-center">
+		    <a class="nav-item" href="#">
+		      <span class="icon">
+		        <i class="fa fa-github"></i>
+		      </span>
+		    </a>
+		    <a class="nav-item" href="#">
+		      <span class="icon">
+		        <i class="fa fa-twitter"></i>
+		      </span>
+		    </a>
+		  </div>
+
+		  <span class="nav-toggle">
+		    <span></span>
+		    <span></span>
+		    <span></span>
+		  </span>
+
+		  <div class="nav-right nav-menu">
+		    <span class="nav-item">
+		      <a class="button is-primary" ng-click='click()'>
+		        <span>Import</span>
+		      </a>
+					<a class="button is-info" ng-click="Dome()">
+		        <span>Dome</span>
+		      </a>
+					<a class="button is-success" ng-click="Box()">
+						<span>Box</span>
+					</a>
+					<a class="button is-warning" style="background-color: #ff3860;" ng-click="Bullet()">
+						<span>Bullet</span>
+					</a>
+					<a class="button is-warning" ng-click="print()">
+						<span>Print</span>
+					</a>
+		    </span>
+		  </div>
+		</nav>
+
+		<h3>Dome : {{domeStyle}} Box : {{ boxStyle }} Bullet : {{ bulletStyle }}</h3>
+		<div class="columns" ng-show="pagetitle === 'active'">
+		  <div class="column is-three-quarters">
+				<div  style="display: inline-block" id="{{item1.id}}" ng-repeat="item1 in raduisStyle" ng-mouseup="moveObjraduisStyle(item1.id)" ng-init="">
+					{{ initraduisStyle();countStyle() }}
+					<div style="padding-top: 335%;padding-left: 24%;" >
+						<button ng-click="tranformcctv(item1.id, $index)">Detail</button>
+						<button ng-click="delcctv(item1.id, $index)">del</button>
+					</div>
+				</div>
+		    <img id="image" src="{{ data.b64 }}" width="1024" height="768">
+		  </div>
+		  <div class="column">
+
+				<div ng-show="page==='Bullet'">
+				Bullet<br>
+				<a class="button is-primary" ng-click="raduis_bullet(18)">
+					<span>CCTV 16 mm</span>
+				</a>
+				<a class="button is-primary" ng-click="raduis_bullet(28)">
+					<span>CCTV 12 mm</span>
+				</a>
+				<a class="button is-primary" ng-click="raduis_bullet(33.4)">
+					<span>CCTV 8 mm</span>
+				</a>
+				<a class="button is-primary" ng-click="raduis_bullet(48)">
+					<span>CCTV 6 mm</span>
+				</a>
+				<a class="button is-primary" ng-click="raduis_bullet(70.6)">
+					<span>CCTV 4 mm</span>
+				</a>
+				<a class="button is-primary" ng-click="raduis_bullet(80)">
+					<span>CCTV 3.6 mm</span>
+				</a>
+				<a class="button is-primary" ng-click="raduis_bullet(150)">
+					<span>CCTV 2.8 mm</span>
+				</a>
+				<hr>
+				<div ng-show="showRange">
+					<br>
+					<button ng-click="showRange=false" type="submit">X</button>
+					raduis cctv {{idCctv}}
+					<form ng-submit="cctvSubmit()">
+
+						Transform : <input type="range" min="0" max="360" ng-model="range"> {{ range }} <br>
+						Size : <input type="range" min="0" max="500" ng-model="width"> {{ width }} <br>
+					</form>
+					<form ng-submit="setplace(place)">
+						<input type="radio"  name="place" value="Corridor" ng-model="place" checked> Corridor
+						<input type="radio"  name="place" value="office" ng-model="place"> office
+						<input type="submit">
+					</form>
+					<img src="{{office}}">
+				</div>
+		 	 </div>
+
+
+			<div ng-show="page==='Box'">
+			Box<br>
+			<a class="button is-primary" ng-click="raduis_box(18)">
+				<span>CCTV 16 mm</span>
+			</a>
+			<a class="button is-primary" ng-click="raduis_box(28)">
+				<span>CCTV 12 mm</span>
+			</a>
+			<a class="button is-primary" ng-click="raduis_box(33.4)">
+				<span>CCTV 8 mm</span>
+			</a>
+			<a class="button is-primary" ng-click="raduis_box(48)">
+				<span>CCTV 6 mm</span>
+			</a>
+			<a class="button is-primary" ng-click="raduis_box(70.6)">
+				<span>CCTV 4 mm</span>
+			</a>
+			<a class="button is-primary" ng-click="raduis_box(80)">
+				<span>CCTV 3.6 mm</span>
+			</a>
+			<a class="button is-primary" ng-click="raduis_box(150)">
+				<span>CCTV 2.8 mm</span>
+			</a>
+			<hr>
+			<div ng-show="showRange">
+				<br>
+				<button ng-click="showRange=false" type="submit">X</button>
+				raduis cctv {{idCctv}}
+				<form ng-submit="cctvSubmit()">
+					Transform : <input type="range" min="0" max="360" ng-model="range"> {{ range }}  <br>
+					Size : <input type="range" min="0" max="500" ng-model="width"> {{ width }} <br>
+				</form>
+				<form ng-submit="setplace(place)">
+					<input type="radio"  name="place" value="Corridor" ng-model="place" checked> Corridor
+					<input type="radio"  name="place" value="office" ng-model="place"> office
+					<input type="submit">
+				</form>
+				<img src="{{office}}">
+			</div>
+		</div>
+
+		<div ng-show="page==='Dome'">
+		Dome<br>
+		<a class="button is-primary" ng-click="raduis_dome(18)">
+			<span>CCTV 16 mm</span>
+		</a>
+		<a class="button is-primary" ng-click="raduis_dome(28)">
+			<span>CCTV 12 mm</span>
+		</a>
+		<a class="button is-primary" ng-click="raduis_dome(33.4)">
+			<span>CCTV 8 mm</span>
+		</a>
+		<a class="button is-primary" ng-click="raduis_dome(48)">
+			<span>CCTV 6 mm</span>
+		</a>
+		<a class="button is-primary" ng-click="raduis_dome(70.6)">
+			<span>CCTV 4 mm</span>
+		</a>
+		<a class="button is-primary" ng-click="raduis_dome(80)">
+			<span>CCTV 3.6 mm</span>
+		</a>
+		<a class="button is-primary" ng-click="raduis_dome(150)">
+			<span>CCTV 2.8 mm</span>
+		</a>
+		<hr>
+		<div ng-show="showRange">
+			<br>
+			<button ng-click="showRange=false" type="submit">X</button>
+			raduis cctv {{idCctv}}
+			<form ng-submit="cctvSubmit()">
+				Transform : <input type="range" min="0" max="360" ng-model="range"> {{ range }} <br>
+				Size : <input type="range" min="0" max="500" ng-model="width"> {{ width }} <br>
+			</form>
+			<form ng-submit="setplace(place)">
+				<input type="radio"  name="place" value="Corridor" ng-model="place" > Corridor
+				<input type="radio"  name="place" value="office" ng-model="place" checked> office
+				<input type="submit">
+			</form>
+			<!-- {{office}} -->
+			<img src="{{office}}">
+		</div>
+	</div>
+
+		</div>
+		</div>
+
+		<div class="columns" ng-show="pagetitle === 'modal'">
+		  <div class="column is-one-quarter">
+		     <input type="range" min="0" max="100" ng-init="sizeLens = 1.4" ng-model="sizeLens"> {{sizeLens}}
+		     <button ng-click="pagetitle='active'"> go back</button>
+		  </div>
+		  <div class="column">
+		    <img src="./img/test.jpg" width="434" height="326" style="transform: scale({{sizeLens}});">
+		  </div>
+		</div>
+
+		</body>
+	</html>
